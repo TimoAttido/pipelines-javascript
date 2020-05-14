@@ -21,5 +21,4 @@ steps:
     npm install -g @angular/cli
     npm install
     npm run build
-    yarn install
   displayName: 'npm install and build'
