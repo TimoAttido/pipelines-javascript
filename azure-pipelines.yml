@@ -17,8 +17,6 @@ steps:
 
 
 - script: |
-    npx mocha
-    npm install -g @angular/cli
     npm install
     npm run build
   displayName: 'npm install and build'
