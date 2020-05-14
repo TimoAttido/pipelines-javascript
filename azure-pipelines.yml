@@ -7,15 +7,19 @@ trigger:
 - master
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'vs2017-win2016'
 
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '10.x'
+    versionSpec: '12.x'
   displayName: 'Install Node.js'
 
+
 - script: |
+    npx mocha
+    npm install -g @angular/cli
     npm install
     npm run build
+    yarn install
   displayName: 'npm install and build'
