@@ -20,3 +20,18 @@ jobs:
   dependsOn: Debug
   steps:
   - script: echo hello from the Release build
+
+- job: InitialA
+  steps:
+  - script: echo hello from initial A
+
+- job: InitialB
+  steps:
+  - script: echo hello from initial B
+
+- job: Subsequent
+  dependsOn:
+  - InitialA
+  - InitialB
+  steps:
+  - script: echo hello from subsequent
