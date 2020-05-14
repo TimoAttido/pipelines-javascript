@@ -20,7 +20,7 @@ jobs:
 - job: Test3
   dependsOn: Build
   steps:
-  - script: exit 1 echo run set 3 of tests
+  - script: echo run set 3 of tests
 
 - job: TestF
   dependsOn: Build
