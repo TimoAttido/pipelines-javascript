@@ -1,37 +1,48 @@
-# Node.js
-# Build a general Node.js project with npm.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
 - master
 
 jobs:
-- job: myJob
-  timeoutInMinutes: 10
-  pool:
-    vmImage: 'ubuntu-16.04'
+- job: Build
   steps:
-  - bash: echo "Hello world"
-- job: Debug
-  steps:
-  - script: echo hello from the Debug build
-- job: Release
-  dependsOn: Debug
-  steps:
-  - script: echo hello from the Release build
+  - script: echo get thingies from dev?
 
-- job: InitialA
+- job: Test1
+  dependsOn: Build
   steps:
-  - script: echo hello from initial A
+  - script: echo run set 1 of tests
 
-- job: InitialB
+- job: Test2
+  dependsOn: Build
   steps:
-  - script: echo hello from initial B
+  - script: echo run set 2 of tests
 
-- job: Subsequent
+- job: Test3
+  dependsOn: Build
+  steps:
+  - script: echo run set 3 of tests
+
+- job: TestF
+  dependsOn: Build
+  steps:
+  - script: exit 1
+
+- job: Success
   dependsOn:
-  - InitialA
-  - InitialB
+  - Test1
+  - Test2
+  - Test3
+  - TestF
+  condition: and(succeeded('Test1'),succeeded('Test2'),succeeded('Test3'))
   steps:
-  - script: echo hello from subsequent
+  - script: echo SUCCESS push thingies to test?
+
+- job: Fail
+  dependsOn:
+  - Test1
+  - Test2
+  - Test3
+  - TestF
+  condition: or(failed('Test1'),failed('Test2'),failed('Test3'),failed('TestF'))
+  steps:
+    - script: echo FAIL send fail message and something
