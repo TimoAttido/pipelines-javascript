@@ -10,23 +10,4 @@ pool:
   vmImage: 'vs2017-win2016'
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '12.x'
-    checkLatest: true
-  displayName: 'Install Node.js'
-
-
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
-
-jobs:
-- job: Debug
-  steps:
-  - script: echo hello from the Debug build
-- job: Release
-  dependsOn: Debug
-  steps:
-  - script: echo hello from the Release build
+- bash: echo "Hello world"
